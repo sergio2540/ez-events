@@ -151,6 +151,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
         }
 
+	@Override
+	public int getCount() {
+	    // TODO Auto-generated method stub
+	    return 0;
+	}
+
 //        @Override
 //        public int getCount() {
 //            return 5;
