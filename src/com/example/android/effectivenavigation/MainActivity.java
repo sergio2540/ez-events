@@ -16,6 +16,9 @@
 
 package com.example.android.effectivenavigation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -28,6 +31,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -48,65 +53,65 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.activity_main);
 
-        // Create the adapter that will return a fragment for each of the three primary sections
-        // of the app.
-        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+	// Create the adapter that will return a fragment for each of the three primary sections
+	// of the app.
+	mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the action bar.
-        final ActionBar actionBar = getActionBar();
+	// Set up the action bar.
+	final ActionBar actionBar = getActionBar();
 
-        // Specify that the Home/Up button should not be enabled, since there is no hierarchical
-        // parent.
-        actionBar.setHomeButtonEnabled(false);
+	// Specify that the Home/Up button should not be enabled, since there is no hierarchical
+	// parent.
+	actionBar.setHomeButtonEnabled(false);
 
-        // Specify that we will be displaying tabs in the action bar.
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+	// Specify that we will be displaying tabs in the action bar.
+	actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        // Set up the ViewPager, attaching the adapter and setting up a listener for when the
-        // user swipes between sections.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mAppSectionsPagerAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // When swiping between different app sections, select the corresponding tab.
-                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
-                // Tab.
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
+	// Set up the ViewPager, attaching the adapter and setting up a listener for when the
+	// user swipes between sections.
+	mViewPager = (ViewPager) findViewById(R.id.pager);
+	mViewPager.setAdapter(mAppSectionsPagerAdapter);
+	mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+	    @Override
+	    public void onPageSelected(int position) {
+		// When swiping between different app sections, select the corresponding tab.
+		// We can also use ActionBar.Tab#select() to do this if we have a reference to the
+		// Tab.
+		actionBar.setSelectedNavigationItem(position);
+	    }
+	});
 
-//        // For each of the sections in the app, add a tab to the action bar.
-//        for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
-//            // Create a tab with text corresponding to the page title defined by the adapter.
-//            // Also specify this Activity object, which implements the TabListener interface, as the
-//            // listener for when this tab is selected.
-//            
-//        }
-        
-        String sec1 = "My Events";
-        String sec2 = "Popular Events";
-        String sec3 = "Notifications";
-        	
-        actionBar.addTab(
-                actionBar.newTab()
-                        .setText(sec1)
-                        .setTabListener(this));
-        
-        actionBar.addTab(
-                actionBar.newTab()
-                        .setText(sec2)
-                        .setTabListener(this));
-        
-        actionBar.addTab(
-                actionBar.newTab()
-                        .setText(sec3)
-                        .setTabListener(this));
-        
-        
+	//        // For each of the sections in the app, add a tab to the action bar.
+	//        for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
+	//            // Create a tab with text corresponding to the page title defined by the adapter.
+	//            // Also specify this Activity object, which implements the TabListener interface, as the
+	//            // listener for when this tab is selected.
+	//            
+	//        }
+
+	String sec1 = "My Events";
+	String sec2 = "Popular Events";
+	String sec3 = "Notifications";
+
+	actionBar.addTab(
+		actionBar.newTab()
+		.setText(sec1)
+		.setTabListener(this));
+
+	actionBar.addTab(
+		actionBar.newTab()
+		.setText(sec2)
+		.setTabListener(this));
+
+	actionBar.addTab(
+		actionBar.newTab()
+		.setText(sec3)
+		.setTabListener(this));
+
+
     }
 
     @Override
@@ -115,8 +120,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, switch to the corresponding page in the ViewPager.
-        mViewPager.setCurrentItem(tab.getPosition());
+	// When the given tab is selected, switch to the corresponding page in the ViewPager.
+	mViewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
@@ -129,43 +134,42 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public AppSectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+	public AppSectionsPagerAdapter(FragmentManager fm) {
+	    super(fm);
+	}
 
-        @Override
-        public Fragment getItem(int i) {
-            switch (i) {
-                case 0:
-                    // The first section of the app is the most interesting -- it offers
-                    // a launchpad into the other demonstrations in this example application.
-                    return new LaunchpadSectionFragment();
+	@Override
+	public Fragment getItem(int i) {
+	    switch (i) {
+	    case 0:
+		// The first section of the app is the most interesting -- it offers
+		// a launchpad into the other demonstrations in this example application.
+		return new LaunchpadSectionFragment();
 
-                default:
-                    // The other sections of the app are dummy placeholders.
-                    Fragment fragment = new DummySectionFragment();
-                    Bundle args = new Bundle();
-                    args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
-                    fragment.setArguments(args);
-                    return fragment;
-            }
-        }
+	    default:
+		// The other sections of the app are dummy placeholders.
+		Fragment fragment = new DummySectionFragment();
+		Bundle args = new Bundle();
+		args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
+		fragment.setArguments(args);
+		return fragment;
+	    }
+	}
 
 	@Override
 	public int getCount() {
-	    // TODO Auto-generated method stub
-	    return 0;
+	    return 3;
 	}
 
-//        @Override
-//        public int getCount() {
-//            return 5;
-//        }
+	//        @Override
+	//        public int getCount() {
+	//            return 5;
+	//        }
 
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            return "Section " + (position + 1);
-//        }
+	//        @Override
+	//        public CharSequence getPageTitle(int position) {
+	//            return "Section " + (position + 1);
+	//        }
     }
 
     /**
@@ -173,40 +177,60 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     public static class LaunchpadSectionFragment extends Fragment {
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_section_launchpad, container, false);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+		Bundle savedInstanceState) {
+	    View rootView = inflater.inflate(R.layout.fragment_section_launchpad, container, false);
 
-            // Demonstration of a collection-browsing activity.
-            rootView.findViewById(R.id.demo_collection_button)
-                    .setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(getActivity(), CollectionDemoActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+	    ListView lv = (ListView)rootView.findViewById(R.id.my_events);
 
-            // Demonstration of navigating to external activities.
-            rootView.findViewById(R.id.demo_external_activity)
-                    .setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Create an intent that asks the user to pick a photo, but using
-                            // FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET, ensures that relaunching
-                            // the application from the device home screen does not return
-                            // to the external activity.
-                            Intent externalActivityIntent = new Intent(Intent.ACTION_PICK);
-                            externalActivityIntent.setType("image/*");
-                            externalActivityIntent.addFlags(
-                                    Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                            startActivity(externalActivityIntent);
-                        }
-                    });
+	    List<String > lista = new ArrayList<String>();
+	    lista.add("Evento 1");
+	    lista.add("Evento 2");
+	    lista.add("Evento 3");
+	    lista.add("Evento 4");
+	    lista.add("Evento 5");
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.event, lista);
 
-            return rootView;
-        }
+	    lv.setAdapter(adapter);
+
+
+	   
+
+
+
+
+	    // Demonstration of a collection-browsing activity.
+	    //            rootView.findViewById(R.id.demo_collection_button)
+	    //                    .setOnClickListener(new View.OnClickListener() {
+	    //                        @Override
+	    //                        public void onClick(View view) {
+	    //                            Intent intent = new Intent(getActivity(), CollectionDemoActivity.class);
+	    //                            startActivity(intent);
+	    //                        }
+	    //                    });
+	    //
+	    //            // Demonstration of navigating to external activities.
+	    //            rootView.findViewById(R.id.demo_external_activity)
+	    //                    .setOnClickListener(new View.OnClickListener() {
+	    //                        @Override
+	    //                        public void onClick(View view) {
+	    //                            // Create an intent that asks the user to pick a photo, but using
+	    //                            // FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET, ensures that relaunching
+	    //                            // the application from the device home screen does not return
+	    //                            // to the external activity.
+	    //                            Intent externalActivityIntent = new Intent(Intent.ACTION_PICK);
+	    //                            externalActivityIntent.setType("image/*");
+	    //                            externalActivityIntent.addFlags(
+	    //                                    Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+	    //                            startActivity(externalActivityIntent);
+	    //                        }
+	    //                    });
+
+
+
+	    return rootView;
+	}
     }
 
     /**
@@ -214,16 +238,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     public static class DummySectionFragment extends Fragment {
 
-        public static final String ARG_SECTION_NUMBER = "section_number";
+	public static final String ARG_SECTION_NUMBER = "section_number";
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_section_dummy, container, false);
-            Bundle args = getArguments();
-            ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                    getString(R.string.dummy_section_text, args.getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+		Bundle savedInstanceState) {
+	    View rootView = inflater.inflate(R.layout.fragment_section_dummy, container, false);
+	    Bundle args = getArguments();
+	    ((TextView) rootView.findViewById(android.R.id.text1)).setText(
+		    getString(R.string.dummy_section_text, args.getInt(ARG_SECTION_NUMBER)));
+	    return rootView;
+	}
     }
 }
