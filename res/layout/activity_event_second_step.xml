@@ -47,7 +47,7 @@
     android:layout_alignBottom="@+id/textView2"
     android:layout_marginRight="42dp"
     android:layout_toLeftOf="@+id/secondNextButton"
-    android:text="@string/secondWizardDate" />
+    android:text="@string/secondWizardDate"/>
 
 <TextView
     android:id="@+id/textView4"
@@ -56,5 +56,19 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:text="@string/firstWizardWhere" />
+
+<EditText
+    android:id="@+id/editText1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/textView3"
+    android:layout_marginRight="26dp"
+    android:layout_marginTop="18dp"
+    android:layout_toLeftOf="@+id/secondNextButton"
+    android:ems="10"
+    android:inputType="date" >
+
+    <requestFocus />
+</EditText>
 
 </RelativeLayout>

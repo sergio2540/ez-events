@@ -29,17 +29,18 @@ public final class R {
         public static final int drawer_shadow=0x7f020001;
         public static final int earth=0x7f020002;
         public static final int ez_evens_logo=0x7f020003;
-        public static final int ic_action_new=0x7f020004;
-        public static final int ic_action_settings=0x7f020005;
-        public static final int ic_drawer=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
-        public static final int jupiter=0x7f020008;
-        public static final int mars=0x7f020009;
-        public static final int mercury=0x7f02000a;
-        public static final int neptune=0x7f02000b;
-        public static final int saturn=0x7f02000c;
-        public static final int uranus=0x7f02000d;
-        public static final int venus=0x7f02000e;
+        public static final int ic_action_event=0x7f020004;
+        public static final int ic_action_new=0x7f020005;
+        public static final int ic_action_settings=0x7f020006;
+        public static final int ic_drawer=0x7f020007;
+        public static final int ic_launcher=0x7f020008;
+        public static final int jupiter=0x7f020009;
+        public static final int mars=0x7f02000a;
+        public static final int mercury=0x7f02000b;
+        public static final int neptune=0x7f02000c;
+        public static final int saturn=0x7f02000d;
+        public static final int uranus=0x7f02000e;
+        public static final int venus=0x7f02000f;
     }
     public static final class id {
         public static final int action_create_event=0x7f080017;
@@ -89,7 +90,7 @@ public final class R {
         public static final int event_first_step=0x7f070001;
         public static final int event_second_step=0x7f070002;
         public static final int guests=0x7f070003;
-        public static final int main_activity_actions=0x7f070004;
+        public static final int menu_actions=0x7f070004;
     }
     public static final class string {
         public static final int Login=0x7f050006;

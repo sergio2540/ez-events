@@ -41,15 +41,18 @@
         </activity>
         <activity
             android:name=".EventFirstStepActivity"
-            android:label="@string/title_activity_event_first_step" >
+            android:label="@string/title_activity_event_first_step"
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name=".EventSecondStepActivity"
-            android:label="@string/title_activity_event_second_step" >
+            android:label="@string/title_activity_event_second_step"
+            android:parentActivityName=".EventFirstStepActivity" >
         </activity>
         <activity
             android:name=".CheckListActivity"
-            android:label="@string/title_activity_check_list" >
+            android:label="@string/title_activity_check_list"
+            android:parentActivityName=".EventSecondStepActivity" >
         </activity>
         <activity
             android:name=".GuestsActivity"
