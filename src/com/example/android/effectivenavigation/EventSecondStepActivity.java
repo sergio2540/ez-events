@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,11 +17,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 public class EventSecondStepActivity extends Activity {
 
 	Calendar myCalendar = Calendar.getInstance();
-	EditText editText;
+	EditText editDate;
+	EditText editTime;
+
 	
 
 	DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -38,15 +42,12 @@ public class EventSecondStepActivity extends Activity {
 	};
 
 
-	
-
-
 	private void updateLabel() {
 
 		String myFormat = "MM/dd/yy"; //In which you need put here
 		SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-		editText.setText(sdf.format(myCalendar.getTime()));
+		editDate.setText(sdf.format(myCalendar.getTime()));
 	}
 
 
@@ -55,7 +56,9 @@ public class EventSecondStepActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_second_step);
 		
-		editText = (EditText) findViewById(R.id.editText1); 
+		editDate = (EditText) findViewById(R.id.date); 
+		editTime = (EditText) findViewById(R.id.time); 
+
 
 		Button mSecondNextButton = (Button) findViewById(R.id.secondNextButton);
 
@@ -69,7 +72,7 @@ public class EventSecondStepActivity extends Activity {
 			}
 		});
 		
-		editText.setOnClickListener(new OnClickListener() {
+		editDate.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -79,6 +82,27 @@ public class EventSecondStepActivity extends Activity {
 				
 			}
 		});
+		
+		editTime.setOnClickListener(new OnClickListener() {
+
+	        @Override
+	        public void onClick(View v) {
+	            // TODO Auto-generated method stub
+	            Calendar mcurrentTime = Calendar.getInstance();
+	            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+	            int minute = mcurrentTime.get(Calendar.MINUTE);
+	            TimePickerDialog mTimePicker;
+	            mTimePicker = new TimePickerDialog(v.getContext(), new TimePickerDialog.OnTimeSetListener() {
+	                @Override
+	                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+	                    editTime.setText( selectedHour + ":" + selectedMinute);
+	                }
+	            }, hour, minute, true);//Yes 24 hour time
+	            mTimePicker.setTitle("Select Time");
+	            mTimePicker.show();
+
+	        }
+	    });
 		
 	}
 
