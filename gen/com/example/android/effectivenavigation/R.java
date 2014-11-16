@@ -36,20 +36,20 @@ public final class R {
     }
     public static final class id {
         public static final int button1=0x7f070004;
-        public static final int content_frame=0x7f07000e;
+        public static final int content_frame=0x7f070008;
         public static final int create_account=0x7f070005;
-        public static final int drawer_layout=0x7f07000d;
-        public static final int editText1=0x7f07000b;
-        public static final int editText2=0x7f07000a;
-        public static final int image=0x7f070008;
+        public static final int drawer_layout=0x7f070007;
+        public static final int editText1=0x7f07000e;
+        public static final int editText2=0x7f07000d;
+        public static final int image=0x7f07000b;
         public static final int imageView1=0x7f070006;
-        public static final int left_drawer=0x7f07000f;
-        public static final int my_events=0x7f070009;
+        public static final int left_drawer=0x7f070009;
+        public static final int my_events=0x7f07000c;
         public static final int pager=0x7f070000;
         public static final int pager_title_strip=0x7f070001;
         public static final int password=0x7f070002;
-        public static final int rowTextView=0x7f070007;
-        public static final int textView1=0x7f07000c;
+        public static final int rowTextView=0x7f07000a;
+        public static final int textView1=0x7f07000f;
         public static final int username=0x7f070003;
     }
     public static final class layout {
