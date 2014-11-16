@@ -54,6 +54,10 @@
             android:label="@string/title_activity_check_list"
             android:parentActivityName=".EventSecondStepActivity" >
         </activity>
+        <activity
+            android:name=".GuestsActivity"
+            android:label="@string/title_activity_guests" >
+        </activity>
     </application>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->

@@ -12,7 +12,7 @@
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
-  limitations under the License.
+  limitations under the License.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,6 +50,10 @@
         <activity
             android:name=".CheckListActivity"
             android:label="@string/title_activity_check_list" >
+        </activity>
+        <activity
+            android:name=".GuestsActivity"
+            android:label="@string/title_activity_guests" >
         </activity>
     </application>
 

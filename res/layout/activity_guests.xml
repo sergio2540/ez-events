@@ -9,27 +9,26 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:weightSum="10"
-    tools:context="com.example.android.effectivenavigation.CheckListActivity" >
+    tools:context="com.example.android.effectivenavigation.GuestsActivity" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="31dp"
+        android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="@string/thirdWizardCheckList" />
+        android:text="@string/fourthWizardGuests" />
 
     <ExpandableListView
         android:id="@+id/expandableListView1"
-        android:layout_width="wrap_content"
-        android:layout_height="365dp"
-        android:layout_weight="6" >
+        android:layout_width="match_parent"
+        android:layout_height="359dp" >
+
     </ExpandableListView>
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="31dp"
-        android:layout_weight="2"
         android:background="#4877C0"
         android:gravity="center_horizontal"
         android:text="@string/next_wizard"
