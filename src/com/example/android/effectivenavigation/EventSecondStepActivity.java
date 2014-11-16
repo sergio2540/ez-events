@@ -20,18 +20,7 @@ import android.widget.TextView;
 public class EventSecondStepActivity extends Activity {
 
 	Calendar myCalendar = Calendar.getInstance();
-	
 	EditText editText = (EditText)findViewById(R.id.editText1);
-	editText.setOnClickListener(new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			new DatePickerDialog(v.getContext(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-					myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-			
-		}
-	});
 	
 
 	DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -65,6 +54,7 @@ public class EventSecondStepActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_second_step);
+	
 
 		Button mSecondNextButton = (Button) findViewById(R.id.secondNextButton);
 
@@ -77,6 +67,17 @@ public class EventSecondStepActivity extends Activity {
 
 			}
 		});
+		editText.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new DatePickerDialog(v.getContext(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+						myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+				
+			}
+		});
+		
 	}
 
 	@Override

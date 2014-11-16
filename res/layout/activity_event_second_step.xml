@@ -16,59 +16,58 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
         android:text="@string/when" />
-    
-    
-<Button
-    android:id="@+id/secondNextButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="22dp"
-    android:background="#4877C0"
-    android:text="@string/next_wizard"
-    android:textColor="#FFFFFF" />
 
-<TextView
-    android:id="@+id/textView2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/textView1"
-    android:layout_marginLeft="15dp"
-    android:layout_marginTop="50dp"
-    android:layout_toRightOf="@+id/secondNextButton"
-    android:text="@string/secondWizardTime" />
+    <Button
+        android:id="@+id/secondNextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:background="#4877C0"
+        android:text="@string/next_wizard"
+        android:textColor="#FFFFFF" />
 
-<TextView
-    android:id="@+id/textView3"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignBaseline="@+id/textView2"
-    android:layout_alignBottom="@+id/textView2"
-    android:layout_marginRight="42dp"
-    android:layout_toLeftOf="@+id/secondNextButton"
-    android:text="@string/secondWizardDate"/>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@+id/secondNextButton"
+        android:text="@string/secondWizardTime" />
 
-<TextView
-    android:id="@+id/textView4"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
-    android:text="@string/firstWizardWhere" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_marginRight="42dp"
+        android:layout_toLeftOf="@+id/secondNextButton"
+        android:text="@string/secondWizardDate" />
 
-<EditText
-    android:id="@+id/editText1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/textView3"
-    android:layout_marginRight="26dp"
-    android:layout_marginTop="18dp"
-    android:layout_toLeftOf="@+id/secondNextButton"
-    android:ems="10"
-    android:inputType="date" >
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/firstWizardWhere" />
 
-    <requestFocus />
-</EditText>
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@+id/secondNextButton"
+        android:ems="10"
+        android:inputType="date" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>
