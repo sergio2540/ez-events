@@ -1,9 +1,13 @@
 package com.example.android.effectivenavigation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class CheckListActivity extends Activity {
 
@@ -11,6 +15,18 @@ public class CheckListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check_list);
+		
+		Button mCheckListButton = (Button) findViewById(R.id.check_list_next);
+
+		mCheckListButton.setOnClickListener(new OnClickListener() {
+		    @Override
+		    public void onClick(View view) {
+			Intent intent = new Intent(view.getContext(), GuestsActivity.class);
+			//attemptLogin();
+			startActivity(intent);
+
+		    }
+		});
 	}
 
 	@Override
