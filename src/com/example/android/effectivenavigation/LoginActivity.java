@@ -45,7 +45,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	private UserLoginTask mAuthTask = null;
 
 	 //SUI references.
-	private AutoCompleteTextView userNameView;
+	private EditText userNameView;
 	private EditText mPasswordView;
 	//private View mProgressView;
 	//private View mLoginFormView;
@@ -56,7 +56,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		userNameView = (AutoCompleteTextView) findViewById(R.id.username);
+		userNameView = (EditText) findViewById(R.id.username);
 		populateAutoComplete();
 
 		mPasswordView = (EditText) findViewById(R.id.password);
@@ -87,7 +87,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	}
 
 	private void populateAutoComplete() {
-		getLoaderManager().initLoader(0, null, this);
+		//getLoaderManager().initLoader(0, null, this);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 	private boolean isEmailValid(String email) {
 		 //TODO: Replace this with your own logic
-		return email.contains("@");
+		return true;
 	}
 
 	private boolean isPasswordValid(String password) {
@@ -207,7 +207,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 				android.R.layout.simple_dropdown_item_1line,
 				emailAddressCollection);
 
-		userNameView.setAdapter(adapter);
+		//userNameView.setAdapter(adapter);
 	}
 
 	/**
