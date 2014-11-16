@@ -20,7 +20,7 @@ import android.widget.TextView;
 public class EventSecondStepActivity extends Activity {
 
 	Calendar myCalendar = Calendar.getInstance();
-	EditText editText = (EditText)findViewById(R.id.editText1);
+	EditText editText;
 	
 
 	DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -54,7 +54,8 @@ public class EventSecondStepActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_second_step);
-	
+		
+		editText = (EditText) findViewById(R.id.editText1); 
 
 		Button mSecondNextButton = (Button) findViewById(R.id.secondNextButton);
 
@@ -67,6 +68,7 @@ public class EventSecondStepActivity extends Activity {
 
 			}
 		});
+		
 		editText.setOnClickListener(new OnClickListener() {
 			
 			@Override
