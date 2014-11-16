@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   Copyright 2013 The Android Open Source Project
 
@@ -11,11 +12,13 @@
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
-  limitations under the License.
-  -->
+  limitations under the License.
+-->
 
 <resources>
+
     <string name="app_name">Ez-Events</string>
+
     <string-array name="planets_array">
         <item>Mercury</item>
         <item>Venus</item>
@@ -26,6 +29,7 @@
         <item>Uranus</item>
         <item>Neptune</item>
     </string-array>
+
     <string name="dummy_section_text">Em Desenvolvimento</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -36,6 +40,20 @@
     <string name="logo">logo</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-        
+    <string name="title_activity_event_first_step">EventFirstStep</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="next_wizard">Next</string>
+    <string name="firstWizardTop">Basic Information</string>
+    <string name="firstWizardTitle">Title</string>
+    <string name="firstWizardDescription">Description</string>
+    <string name="firstWizardWhere">Where</string>
+    <string name="title_activity_event_second_step">EventSecondStep</string>
+    <string name="when">When</string>
+    <string name="secondWizardTime">Time</string>
+    <string name="secondWizardDate">Date</string>
+    <string name="title_activity_check_list">CheckListActivity</string>
+    <string name="thirdWizardCheckList">CheckList</string>
     
+
 </resources>
