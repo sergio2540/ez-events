@@ -51,7 +51,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	MenuInflater inflater = getMenuInflater();
-	inflater.inflate(R.menu.main_activity_actions, menu);
+	inflater.inflate(R.menu.menu_actions, menu);
 	return super.onCreateOptionsMenu(menu);
     }
 
@@ -77,21 +77,28 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	// Pass any configuration change to the drawer toggls
 	mDrawerToggle.onConfigurationChanged(newConfig);
     }
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
 	// Handle presses on the action bar items
 	switch (item.getItemId()) {
-//	case R.id.action_create_event:
-//	    //openSearch();
-//	    return true;
-//	case R.id.action_settings:
+	case R.id.action_create_event:
+	    create_event();
+	    return true;
+	case R.id.action_settings:
 //	    //openSettings();
-//	    return true;
+	return true;
 	default:
 	    return super.onOptionsItemSelected(item);
 	}
 
+    }
+
+
+    private void create_event() {
+	
+	
     }
 
 

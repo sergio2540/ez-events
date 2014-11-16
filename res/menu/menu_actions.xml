@@ -4,12 +4,14 @@
     
     <!-- Create, should appear as action button -->
     <item android:id="@+id/action_create_event"
-          android:icon="@drawable/ic_action_new"
+          android:icon="@drawable/ic_action_event"
           android:title="Create Event"
+          android:showAsAction="ifRoom"
        />
     
     <!-- Settings, should always be in the overflow -->
     <item android:id="@+id/action_settings"
           android:title="Settings"
+          android:showAsAction="never"
            />
 </menu>
