@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
@@ -98,6 +99,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     private void create_event() {
 	
+	Intent intent = new Intent(this, EventFirstStepActivity.class);
+	//attemptLogin();
+	startActivity(intent);
 	
     }
 

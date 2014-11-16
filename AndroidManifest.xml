@@ -12,7 +12,7 @@
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
-  limitations under the License.
+  limitations under the License.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -41,15 +41,18 @@
         </activity>
         <activity
             android:name=".EventFirstStepActivity"
-            android:label="@string/title_activity_event_first_step" >
+            android:label="@string/title_activity_event_first_step"
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name=".EventSecondStepActivity"
-            android:label="@string/title_activity_event_second_step" >
+            android:label="@string/title_activity_event_second_step"
+            android:parentActivityName=".EventFirstStepActivity" >
         </activity>
         <activity
             android:name=".CheckListActivity"
-            android:label="@string/title_activity_check_list" >
+            android:label="@string/title_activity_check_list"
+            android:parentActivityName=".EventSecondStepActivity" >
         </activity>
     </application>
 
