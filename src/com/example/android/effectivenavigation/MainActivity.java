@@ -19,23 +19,76 @@ package com.example.android.effectivenavigation;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggls
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+         // The action bar home/up action should open or close the drawer.
+         // ActionBarDrawerToggle will take care of this.
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle action buttons
+        switch(item.getItemId()) {
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -51,11 +104,87 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     ViewPager mViewPager;
 
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    private String[] mPlanetTitles;
+
+    
+    private void selectItem(int position) {
+	// update the main content by replacing fragments
+	//Fragment fragment = new PlanetFragment();
+	Bundle args = new Bundle();
+	//args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+	//fragment.setArguments(args);
+
+	android.app.FragmentManager fragmentManager = getFragmentManager();
+	//fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+	// update selected item and title, then close the drawer
+	mDrawerList.setItemChecked(position, true);
+	setTitle(mPlanetTitles[position]);
+	mDrawerLayout.closeDrawer(mDrawerList);
+    }
+    
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(mTitle);
+    }
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	
 	setContentView(R.layout.activity_main);
+	
+	mTitle = mDrawerTitle = getTitle();
+	mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+	mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+	mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
+	// set a custom shadow that overlays the main content when the drawer opens
+	//mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+	
+	// set up the drawer's list view with items and click listener
+	mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+		R.layout.drawer_list_item, mPlanetTitles));
+	
+	mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+	
+	 // ActionBarDrawerToggle ties together the the proper interactions
+        // between the sliding drawer and the action bar app icon
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+                ) {
+            @Override
+	    public void onDrawerClosed(View view) {
+                getActionBar().setTitle(mTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            @Override
+	    public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+        
+        
+        
 	// Create the adapter that will return a fragment for each of the three primary sections
 	// of the app.
 	mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
@@ -65,7 +194,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	// Specify that the Home/Up button should not be enabled, since there is no hierarchical
 	// parent.
-	actionBar.setHomeButtonEnabled(false);
+	//actionBar.setHomeButtonEnabled(false);
 
 	// Specify that we will be displaying tabs in the action bar.
 	actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -195,7 +324,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    lv.setAdapter(adapter);
 
 
-	   
+
 
 
 
