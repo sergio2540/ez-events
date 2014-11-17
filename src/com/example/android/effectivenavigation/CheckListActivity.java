@@ -9,7 +9,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,8 +24,63 @@ import android.widget.ListView;
 
 public class CheckListActivity extends Activity {
 
-    List<String> checkList = new ArrayList<String>();
-    String mText;
+    private final List<String> checkList = new ArrayList<String>();
+
+    private int selected = 0; 
+
+    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+	// Called when the action mode is created; startActionMode() was called
+	@Override
+	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+	    // Inflate a menu resource providing context menu items
+	    MenuInflater inflater = mode.getMenuInflater();
+	    inflater.inflate(R.menu.check_element, menu);
+	    return true;
+	}
+
+	// Called each time the action mode is shown. Always called after onCreateActionMode, but
+	// may be called multiple times if the mode is invalidated.
+	@Override
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+	    return false; // Return false if nothing is done
+	}
+
+	// Called when the user selects a contextual menu item
+	@Override
+	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+	    switch (item.getItemId()) {
+	    case R.id.action_edit_todo:
+		showDialog(ItemOption.EDIT,titleEdit,positiveEdit);
+		mode.finish(); // Action picked, so close the CAB
+		return true;
+	    case R.id.action_remove_todo:
+		removeTODO(selected);
+		mode.finish(); // Action picked, so close the CAB
+		return true;
+	    default:
+		return false;
+	    }
+	}
+
+	private void removeTODO(int selected) {
+
+	    checkListAdapter.remove(checkList.get(selected));
+
+	}
+
+
+
+	// Called when the user exits the action mode
+	@Override
+	public void onDestroyActionMode(ActionMode mode) {
+	    mActionMode = null;
+	}
+    };
+
+    protected Object mActionMode;
+
+    private ArrayAdapter<String> checkListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +100,27 @@ public class CheckListActivity extends Activity {
 	});
 
 	ListView checkListView =  (ListView)findViewById(R.id.checkList);
-	ArrayAdapter<String> checkListAdapter = new ArrayAdapter<String>(this,R.layout.check_list_view, checkList);
+	checkListAdapter = new ArrayAdapter<String>(this,R.layout.check_list_view, checkList);
 	checkListAdapter.notifyDataSetChanged();
+
 
 	checkListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 
 	    @Override
-	    public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-		    int arg2, long arg3) {
-		// TODO Auto-generated method stub
+	    public boolean onItemLongClick(AdapterView<?> adapter, View view,
+		    int index, long arg3) {
+
+		if (mActionMode != null) {
+		    return false;
+		}
+
+		selected = index;
+
+		// Start the CAB using the ActionMode.Callback defined above
+		mActionMode = CheckListActivity.this.startActionMode(mActionModeCallback);
+		view.setSelected(true);
+
 		return false;
 	    }
 	});
@@ -78,17 +146,27 @@ public class CheckListActivity extends Activity {
 	}
 	else if (id == R.id.action_add_todo)
 	{
-	    showDialog();
+	    showDialog(ItemOption.ADD,titleAdd,positiveAdd );
 
 	}
 	return super.onOptionsItemSelected(item);
     }
 
+    private enum ItemOption {
+	ADD,EDIT,
+    }
 
+    //ADD POPUP INFO
+    private final String titleAdd = "Add TODO";
+    private final String positiveAdd = "Add";
 
-    private void showDialog() {
+    //EDIT POPUP INFO
+    String titleEdit = "Edit TODO";
+    String positiveEdit = "Save";
+
+    private void showDialog(final ItemOption type, String title, String positive) {
 	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	builder.setTitle("Add TODO");
+	builder.setTitle(title);
 
 	// Set up the input
 	final EditText input = new EditText(this);
@@ -97,14 +175,17 @@ public class CheckListActivity extends Activity {
 	builder.setView(input);
 
 	// Set up the buttons
-	builder.setPositiveButton("Add", new DialogInterface.OnClickListener() { 
+	builder.setPositiveButton(positive, new DialogInterface.OnClickListener() { 
 	    @Override
 	    public void onClick(DialogInterface dialog, int which) {
 
-		checkList.add(input.getText().toString());
-		
+		if (type == ItemOption.ADD)
+		    checkList.add(input.getText().toString());
+		else if (type == ItemOption.EDIT){
 
-	    }
+		    ((ArrayList<String>)checkList).set(selected,input.getText().toString());
+		}
+	    } 
 	});
 	builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 	    @Override
@@ -115,4 +196,5 @@ public class CheckListActivity extends Activity {
 
 	builder.show();
     }
+
 }
