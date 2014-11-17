@@ -18,12 +18,12 @@
         android:layout_weight="2"
         android:text="@string/thirdWizardCheckList" />
 
-    <ExpandableListView
-        android:id="@+id/expandableListView1"
-        android:layout_width="wrap_content"
-        android:layout_height="365dp"
+    <ListView
+        android:id="@+id/checkList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="6" >
-    </ExpandableListView>
+    </ListView>
 
     <Button
         android:id="@+id/check_list_next"
