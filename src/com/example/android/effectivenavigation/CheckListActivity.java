@@ -173,7 +173,13 @@ public class CheckListActivity extends Activity {
 	// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
 	input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT | InputType.TYPE_TEXT_FLAG_MULTI_LINE );
 	builder.setView(input);
-
+	
+	if (type == ItemOption.EDIT){
+	    String text_to_edit = checkList.get(selected);
+	    input.setText(text_to_edit);
+	    input.setSelection(text_to_edit.trim().length());
+	}
+	
 	// Set up the buttons
 	builder.setPositiveButton(positive, new DialogInterface.OnClickListener() { 
 	    @Override
@@ -182,7 +188,6 @@ public class CheckListActivity extends Activity {
 		if (type == ItemOption.ADD)
 		    checkList.add(input.getText().toString());
 		else if (type == ItemOption.EDIT){
-
 		    ((ArrayList<String>)checkList).set(selected,input.getText().toString());
 		}
 	    } 
