@@ -1,4 +1,6 @@
-package com.example.android.effectivenavigation;
+package com.ezevents.android.app;
+
+
 
 import android.app.Activity;
 import android.content.Intent;

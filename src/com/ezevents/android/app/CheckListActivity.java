@@ -1,7 +1,11 @@
-package com.example.android.effectivenavigation;
+package com.ezevents.android.app;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
+
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,19 +53,22 @@ public class CheckListActivity extends Activity {
 	// Called when the user selects a contextual menu item
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-	    switch (item.getItemId()) {
-	    case R.id.action_edit_todo:
-		showDialog(ItemOption.EDIT,titleEdit,positiveEdit);
-		mode.finish(); // Action picked, so close the CAB
-		return true;
-	    case R.id.action_remove_todo:
+	    int id = item.getItemId();
+		    if (id == R.id.action_edit_todo){
+			showDialog(ItemOption.EDIT,titleEdit,positiveEdit);
+			mode.finish(); // Action picked, so close the CAB
+			return true;
+		    }
+	    if (id == R.id.action_remove_todo){
 		removeTODO(selected);
 		mode.finish(); // Action picked, so close the CAB
 		return true;
-	    default:
+	    }
+	    else {
 		return false;
 	    }
 	}
+
 
 	private void removeTODO(int selected) {
 
@@ -173,13 +180,13 @@ public class CheckListActivity extends Activity {
 	// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
 	input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT | InputType.TYPE_TEXT_FLAG_MULTI_LINE );
 	builder.setView(input);
-	
+
 	if (type == ItemOption.EDIT){
 	    String text_to_edit = checkList.get(selected);
 	    input.setText(text_to_edit);
 	    input.setSelection(text_to_edit.trim().length());
 	}
-	
+
 	// Set up the buttons
 	builder.setPositiveButton(positive, new DialogInterface.OnClickListener() { 
 	    @Override

@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.android.effectivenavigation.CheckListActivity" >
+    tools:context="com.ezevents.android.app.CheckListActivity" >
 
     <item
         android:id="@+id/action_add_todo"

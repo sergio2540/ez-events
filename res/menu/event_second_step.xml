@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.android.effectivenavigation.EventSecondStep" >
+    tools:context="com.ezevents.android.app.EventSecondStep" >
 
     <item
         android:id="@+id/action_settings"

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.android.effectivenavigation;
+package com.ezevents.android.app;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 import android.app.ActionBar;
@@ -78,31 +77,33 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	// Pass any configuration change to the drawer toggls
 	mDrawerToggle.onConfigurationChanged(newConfig);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
 	// Handle presses on the action bar items
-	switch (item.getItemId()) {
-	case R.id.action_create_event:
+	int id = item.getItemId();
+	if (id == R.id.action_create_event){
 	    create_event();
 	    return true;
-	case R.id.action_settings:
-//	    //openSettings();
-	return true;
-	default:
-	    return super.onOptionsItemSelected(item);
 	}
-
+	else if (id ==  R.id.action_settings){
+	    //	    //openSettings();
+	    return true;
+	}
+	else
+	    return super.onOptionsItemSelected(item);
     }
 
 
+
+
     private void create_event() {
-	
+
 	Intent intent = new Intent(this, EventFirstStepActivity.class);
 	//attemptLogin();
 	startActivity(intent);
-	
+
     }
 
 
