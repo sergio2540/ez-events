@@ -18,13 +18,13 @@
         android:layout_weight="2"
         android:text="@string/fourthWizardGuests" />
 
-    <ExpandableListView
-        android:id="@+id/expandableListView1"
+     <ListView
+        android:id="@+id/guestList"
         android:layout_width="match_parent"
-        android:layout_height="359dp" >
-
-    </ExpandableListView>
-
+        android:layout_height="wrap_content"
+        android:layout_weight="6" >
+    </ListView>
+    
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"

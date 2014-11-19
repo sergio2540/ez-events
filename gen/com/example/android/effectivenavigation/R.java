@@ -45,11 +45,11 @@ public final class R {
         public static final int venus=0x7f020011;
     }
     public static final class id {
-        public static final int action_add_todo=0x7f08001c;
-        public static final int action_create_event=0x7f08001d;
-        public static final int action_edit_todo=0x7f080019;
-        public static final int action_remove_todo=0x7f08001a;
-        public static final int action_settings=0x7f08001b;
+        public static final int action_add_todo=0x7f08001e;
+        public static final int action_create_event=0x7f08001f;
+        public static final int action_edit_todo=0x7f08001b;
+        public static final int action_remove_todo=0x7f08001c;
+        public static final int action_settings=0x7f08001d;
         public static final int button1=0x7f08000f;
         public static final int checkList=0x7f080001;
         public static final int check_list_next=0x7f080002;
@@ -59,8 +59,10 @@ public final class R {
         public static final int drawer_layout=0x7f080014;
         public static final int editText1=0x7f080005;
         public static final int editText2=0x7f080006;
-        public static final int expandableListView1=0x7f08000e;
         public static final int firstNextButton=0x7f080007;
+        public static final int guestContact=0x7f08001a;
+        public static final int guestList=0x7f08000e;
+        public static final int guestName=0x7f080019;
         public static final int image=0x7f080017;
         public static final int imageView1=0x7f080013;
         public static final int left_drawer=0x7f080016;
@@ -91,8 +93,9 @@ public final class R {
         public static final int fragment_planet=0x7f03000b;
         public static final int fragment_section_dummy=0x7f03000c;
         public static final int fragment_section_launchpad=0x7f03000d;
-        public static final int login2=0x7f03000e;
-        public static final int menu=0x7f03000f;
+        public static final int guest_list_item=0x7f03000e;
+        public static final int login2=0x7f03000f;
+        public static final int menu=0x7f030010;
     }
     public static final class menu {
         public static final int check_element=0x7f070000;
