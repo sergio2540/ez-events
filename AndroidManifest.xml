@@ -54,6 +54,11 @@
             android:parentActivityName="com.ezevents.android.app.EventFirstStepActivity" >
         </activity>
         <activity
+            android:name="com.ezevents.android.app.MapsActivity"
+            android:label="@string/title_activity_guests"
+            android:parentActivityName="com.ezevents.android.app.EventSecondStepActivity" >
+        </activity>
+        <activity
             android:name="com.ezevents.android.app.CheckListActivity"
             android:label="@string/title_activity_check_list"
             android:parentActivityName="com.ezevents.android.app.EventSecondStepActivity" >
