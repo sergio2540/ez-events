@@ -1,7 +1,5 @@
 package com.ezevents.android.app;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class GuestsActivity extends Activity {
 		checkListAdapter = new ArrayAdapter<String>(this,R.layout.check_list_view, guestList);
 		checkListAdapter.notifyDataSetChanged();
 		checkListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
+		checkListView.setAdapter(checkListAdapter);
 
 		ContentResolver cr = getContentResolver();
 		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
@@ -45,10 +43,29 @@ public class GuestsActivity extends Activity {
 				if (emailCur != null) { 
 					// This would allow you get several email addresses
 					// if the email addresses were stored in an array
-					String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+					//int index = emailCur.getColumnName(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+					String email = "";
+					try{
+						email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+					}catch(Exception e){
+
+						Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
+						if (pCur != null) {
+							while (pCur.moveToNext()) {
+								String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
+								String guest = name + phone;
+								guestList.add(guest);
+								continue;
+							}
+							pCur.close();
+
+						} 
+
+
+					}
 					//String emailType = emailCur.getString(
-					//	emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE)); 
-					String guest = name + email;
+					//emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE)); 
+					String guest = name + " " + email;
 					guestList.add(guest);
 					emailCur.close();
 					continue;
@@ -60,9 +77,10 @@ public class GuestsActivity extends Activity {
 						String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
 						String guest = name + phone;
 						guestList.add(guest);
-						pCur.close();
 						continue;
 					}
+					pCur.close();
+
 				} 
 
 			}
