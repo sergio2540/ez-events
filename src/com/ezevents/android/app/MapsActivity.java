@@ -32,6 +32,8 @@ public class MapsActivity extends FragmentActivity {
     GoogleMap googleMap;
     MarkerOptions markerOptions;
     LatLng latLng;
+    private double lat;
+    private double lon;
  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +138,8 @@ public class MapsActivity extends FragmentActivity {
                 markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title(addressText);
- 
+                lat = latLng.latitude;
+                lon = latLng.longitude;
                 googleMap.addMarker(markerOptions);
  
                 // Locate the first location
