@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class EventFirstStepActivity extends Activity {
 
@@ -25,6 +26,8 @@ public class EventFirstStepActivity extends Activity {
 	    public void onClick(View view) {
 		Intent intent = new Intent(view.getContext(), EventSecondStepActivity.class);
 		//attemptLogin();
+		intent.putExtra("Title", ((EditText)findViewById(R.id.editText1)).getText().toString());
+		intent.putExtra("Description", ((EditText)findViewById(R.id.editText2)).getText().toString());
 		startActivity(intent);
 
 	    }

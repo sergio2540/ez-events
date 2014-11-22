@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,18 +24,18 @@ public class GuestsActivity extends Activity {
 
 	private final List<String> guestList = new ArrayList<String>();
 	private ArrayAdapter<String> checkListAdapter;
+	private ListView guestListView; 
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guests);
-
-		ListView checkListView =  (ListView)findViewById(R.id.guestList);
-		checkListAdapter = new ArrayAdapter<String>(this,R.layout.check_list_view, guestList);
+		guestListView = (ListView)findViewById(R.id.guestList);
+		checkListAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice, guestList);
 		checkListAdapter.notifyDataSetChanged();
-		checkListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		checkListView.setAdapter(checkListAdapter);
+		guestListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		guestListView.setAdapter(checkListAdapter);
 
 		ContentResolver cr = getContentResolver();
 		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
@@ -50,6 +51,7 @@ public class GuestsActivity extends Activity {
 					String email = "";
 					try{
 						email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+
 					}catch(Exception e){
 
 						Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
@@ -72,33 +74,57 @@ public class GuestsActivity extends Activity {
 					guestList.add(guest);
 					emailCur.close();
 					continue;
-				} 
+				}
 
-				Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
-				if (pCur != null) {
-					while (pCur.moveToNext()) {
-						String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
-						String guest = name + phone;
-						guestList.add(guest);
-						continue;
-					}
-					pCur.close();
 
-				} 
+				//				Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
+				//				if (pCur != null) {
+				//					while (pCur.moveToNext()) {
+				//						String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
+				//						String guest = name + phone;
+				//						guestList.add(guest);
+				//						continue;
+				//					}
+				//					pCur.close();
+
+				//} 
 
 			}
 		}
-		
+
 		Button mFirstNextButton = (Button) findViewById(R.id.guestNext);
 
 		mFirstNextButton.setOnClickListener(new OnClickListener() {
-		    @Override
-		    public void onClick(View view) {
-			Intent intent = new Intent(view.getContext(), ContactActivity.class);
-			//attemptLogin();
-			startActivity(intent);
+			@Override
+			public void onClick(View view) {
+				//Intent intent = new Intent(view.getContext(), NotificationActivity.class);
+				//attemptLogin();
+				Intent intent = getIntent();
+				intent.setClass(view.getContext(), NotificationActivity.class);
 
-		    }
+				SparseBooleanArray checked = guestListView.getCheckedItemPositions();
+				ArrayList<String> selectedEmails = new ArrayList<String>();
+				ArrayList<String> selectedPhones = new ArrayList<String>();
+
+				for (int i = 0; i < checked.size(); i++) {
+					// Item position in adapter
+					// Add sport if it is checked i.e.) == TRUE!
+					if (checked.valueAt(i)){
+						String selected = guestList.get(i);
+
+						if(selected.contains("@")){
+							selectedEmails.add(guestList.get(i));
+
+						}else 
+							selectedPhones.add(guestList.get(i));
+					}
+				}
+
+				intent.putExtra("Email",selectedEmails);
+				intent.putExtra("Phones", selectedPhones);
+				startActivity(intent);
+
+			}
 		});
 	}
 

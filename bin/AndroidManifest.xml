@@ -55,7 +55,7 @@
         </activity>
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_guests"
+            android:label="@string/title_activity_where"
             android:parentActivityName=".EventSecondStepActivity" >
         </activity>
         <activity
@@ -77,8 +77,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".ContactActivity"
-            android:label="@string/title_activity_contact" >
+            android:name=".NotificationActivity"
+            android:label="@string/title_activity_notify" >
         </activity>
     </application>
 

@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity {
 	mSecondNextButton.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View view) {
-		Intent intent = new Intent(view.getContext(), GuestsActivity.class);
+		Intent intent = new Intent(view.getContext(), CheckListActivity.class);
 		//attemptLogin();
 		startActivity(intent);
 

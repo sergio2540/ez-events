@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -25,13 +26,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.hadoop.hbase.rest.client.Client;
-import org.apache.hadoop.hbase.rest.client.Cluster;
-import org.apache.hadoop.hbase.rest.client.RemoteHTable;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 
 
@@ -50,23 +57,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserLoginTask mAuthTask = null;
-
-	 //SUI references.
+	public static Context context;
+	//SUI references.
 	private EditText userNameView;
 	private EditText mPasswordView;
-	 private RemoteHTable table;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		context = this;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
-		Cluster cluster = new Cluster();
-		cluster.add("ec2-54-194-23-170.eu-west-1.compute.amazonaws.com", 8080);
-		Client  client = new Client(cluster);
-		this.table = new RemoteHTable(client, "ez-events");
-		
-		
+
 		// Set up the login form.
 		userNameView = (EditText) findViewById(R.id.username);
 		populateAutoComplete();
@@ -77,7 +80,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			@Override
 			public boolean onEditorAction(TextView textView, int id,
 					KeyEvent keyEvent) {
-//				if (id == R.id.login || id == EditorInfo.IME_NULL) {
+				//				if (id == R.id.login || id == EditorInfo.IME_NULL) {
 				if (id == EditorInfo.IME_NULL) {
 					attemptLogin();
 					return true;
@@ -90,12 +93,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		mEmailSignInButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(view.getContext(),MainActivity.class);
 				//attemptLogin();
-				startActivity(intent);
-
+				String username = ((EditText) findViewById(R.id.username)).getText().toString();
+				String password = ((EditText) findViewById(R.id.password)).getText().toString();
+				String link = "https://web.ist.utl.pt/ist170515/login.php?Username="+username+"&Password="+password;
+				
+				new HttpRequestAsync().execute(link);
 			}
 		});
+
 
 		//mLoginFormView = findViewById(R.id.login_form);
 		//mProgressView = findViewById(R.id.login_progress);
@@ -115,11 +121,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			return;
 		}
 
-		 //Reset errors.
+		//Reset errors.
 		userNameView.setError(null);
 		mPasswordView.setError(null);
 
-		 //Store values at the time of the login attempt.
+		//Store values at the time of the login attempt.
 		String email = userNameView.getText().toString();
 		String password = mPasswordView.getText().toString();
 
@@ -133,7 +139,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			cancel = true;
 		}
 
-		 //Check for a valid email address.
+		//Check for a valid email address.
 		if (TextUtils.isEmpty(email)) {
 			userNameView.setError(getString(R.string.error_field_required));
 			focusView = userNameView;
@@ -145,12 +151,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		}
 
 		if (cancel) {
-			 //There was an error; don't attempt login and focus the first
-			 //form field with an error.
+			//There was an error; don't attempt login and focus the first
+			//form field with an error.
 			focusView.requestFocus();
 		} else {
-			 //Show a progress spinner, and kick off a background task to
-			 //perform the user login attempt.
+			//Show a progress spinner, and kick off a background task to
+			//perform the user login attempt.
 			//showProgress(true);
 			mAuthTask = new UserLoginTask(email, password);
 			mAuthTask.execute((Void) null);
@@ -158,24 +164,24 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	}
 
 	private boolean isEmailValid(String email) {
-		 //TODO: Replace this with your own logic
+		//TODO: Replace this with your own logic
 		return true;
 	}
 
 	private boolean isPasswordValid(String password) {
-		 //TODO: Replace this with your own logic
+		//TODO: Replace this with your own logic
 		return password.length() > 4;
 	}
 
 	/**
 	 * Shows the progress UI and hides the login form.
 	 */
-	
+
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 		return new CursorLoader(this,
-				 //Retrieve data rows for the device user's 'profile' contact.
+				//Retrieve data rows for the device user's 'profile' contact.
 				Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
 						ContactsContract.Contacts.Data.CONTENT_DIRECTORY),
 						ProfileQuery.PROJECTION,
@@ -184,7 +190,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 						ContactsContract.Contacts.Data.MIMETYPE + " = ?",
 						new String[] { ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE },
 
-						 //Show primary email addresses first. Note that there won't be
+						//Show primary email addresses first. Note that there won't be
 						// a primary email address if the user hasn't specified one.
 						ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
 	}
@@ -216,7 +222,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 	private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
 		// Create adapter to tell the AutoCompleteTextView what to show in its
-		 //dropdown list.
+		//dropdown list.
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				LoginActivity.this,
 				android.R.layout.simple_dropdown_item_1line,
@@ -241,10 +247,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			 //TODO: attempt authentication against a network service.
+			//TODO: attempt authentication against a network service.
 
 			try {
-				 //Simulate network access.
+				//Simulate network access.
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				return false;
@@ -253,12 +259,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
 				if (pieces[0].equals(mEmail)) {
-					 //Account exists, return true if the password matches.
+					//Account exists, return true if the password matches.
 					return pieces[1].equals(mPassword);
 				}
 			}
 
-			 //TODO: register the new account here.
+			//TODO: register the new account here.
 			return true;
 		}
 

@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class EventSecondStepActivity extends Activity {
+	
 
     Calendar myCalendar = Calendar.getInstance();
     EditText editDate;
@@ -82,8 +83,13 @@ public class EventSecondStepActivity extends Activity {
 	mSecondNextButton.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View view) {
-		Intent intent = new Intent(view.getContext(), MapsActivity.class);
+		//Intent intent = new Intent(view.getContext(), MapsActivity.class);
 		//attemptLogin();
+		
+		Intent intent = getIntent();
+		intent.setClass(view.getContext(), MapsActivity.class);
+		intent.putExtra("Date", editDate.getText().toString());
+		intent.putExtra("Time",editTime.getText().toString());
 		startActivity(intent);
 
 	    }

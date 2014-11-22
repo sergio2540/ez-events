@@ -99,9 +99,12 @@ public class CheckListActivity extends Activity {
 	mCheckListButton.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View view) {
-		Intent intent = new Intent(view.getContext(), GuestsActivity.class);
+		//Intent intent = new Intent(view.getContext(), GuestsActivity.class);
 		//attemptLogin();
-		startActivity(intent);
+		Intent intent = getIntent();
+		intent.setClass(view.getContext(), GuestsActivity.class);
+		intent.putExtra("CheckList", checkList.toArray());
+	    startActivity(intent);
 
 	    }
 	});

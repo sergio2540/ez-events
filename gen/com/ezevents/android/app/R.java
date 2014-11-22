@@ -429,49 +429,49 @@ containing a value of this type.
         public static final int venus=0x7f020031;
     }
     public static final class id {
-        public static final int action_add_todo=0x7f070037;
-        public static final int action_create_event=0x7f070038;
-        public static final int action_edit_todo=0x7f070034;
-        public static final int action_remove_todo=0x7f070035;
-        public static final int action_settings=0x7f070036;
+        public static final int action_add_todo=0x7f070036;
+        public static final int action_create_event=0x7f070037;
+        public static final int action_edit_todo=0x7f070033;
+        public static final int action_remove_todo=0x7f070034;
+        public static final int action_settings=0x7f070035;
         public static final int book_now=0x7f070010;
-        public static final int btn_find=0x7f070030;
-        public static final int button1=0x7f070026;
+        public static final int btn_find=0x7f07002f;
+        public static final int button1=0x7f070025;
         public static final int buyButton=0x7f07000a;
         public static final int buy_now=0x7f07000f;
         public static final int buy_with_google=0x7f07000e;
         public static final int checkList=0x7f070015;
         public static final int check_list_next=0x7f070016;
         public static final int classic=0x7f070011;
-        public static final int content_frame=0x7f07002a;
-        public static final int create_account=0x7f070027;
-        public static final int date=0x7f070020;
-        public static final int drawer_layout=0x7f070029;
+        public static final int content_frame=0x7f070029;
+        public static final int create_account=0x7f070026;
+        public static final int date=0x7f07001f;
+        public static final int drawer_layout=0x7f070028;
         public static final int editText1=0x7f070019;
         public static final int editText2=0x7f07001a;
-        public static final int et_location=0x7f070031;
+        public static final int et_location=0x7f070030;
         public static final int firstNextButton=0x7f07001b;
         public static final int grayscale=0x7f070012;
-        public static final int guestContact=0x7f07002f;
-        public static final int guestList=0x7f070022;
-        public static final int guestName=0x7f07002e;
-        public static final int guestNext=0x7f070023;
+        public static final int guestContact=0x7f07002e;
+        public static final int guestList=0x7f070021;
+        public static final int guestName=0x7f07002d;
+        public static final int guestNext=0x7f070022;
         public static final int holo_dark=0x7f070005;
         public static final int holo_light=0x7f070006;
         public static final int hybrid=0x7f070004;
-        public static final int image=0x7f07002c;
-        public static final int imageView1=0x7f070028;
-        public static final int left_drawer=0x7f07002b;
-        public static final int map=0x7f070032;
-        public static final int maps_next=0x7f070033;
+        public static final int image=0x7f07002b;
+        public static final int imageView1=0x7f070027;
+        public static final int left_drawer=0x7f07002a;
+        public static final int map=0x7f070031;
+        public static final int maps_next=0x7f070032;
         public static final int match_parent=0x7f07000c;
         public static final int monochrome=0x7f070013;
-        public static final int my_events=0x7f07002d;
+        public static final int my_events=0x7f07002c;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
         public static final int pager=0x7f070017;
         public static final int pager_title_strip=0x7f070018;
-        public static final int password=0x7f070024;
+        public static final int password=0x7f070023;
         public static final int production=0x7f070007;
         public static final int sandbox=0x7f070008;
         public static final int satellite=0x7f070002;
@@ -482,9 +482,8 @@ containing a value of this type.
         public static final int textView1=0x7f070014;
         public static final int textView2=0x7f07001d;
         public static final int textView3=0x7f07001e;
-        public static final int textView4=0x7f07001f;
-        public static final int time=0x7f070021;
-        public static final int username=0x7f070025;
+        public static final int time=0x7f070020;
+        public static final int username=0x7f070024;
         public static final int wrap_content=0x7f07000d;
     }
     public static final class integer {
@@ -523,8 +522,8 @@ containing a value of this type.
         public static final int Login=0x7f050029;
         public static final int accept=0x7f050002;
         public static final int action_settings=0x7f050030;
-        public static final int action_sign_in=0x7f050042;
-        public static final int action_sign_in_short=0x7f050043;
+        public static final int action_sign_in=0x7f050043;
+        public static final int action_sign_in_short=0x7f050044;
         public static final int action_websearch=0x7f050027;
         public static final int app_name=0x7f050023;
         public static final int app_not_available=0x7f050028;
@@ -634,10 +633,10 @@ containing a value of this type.
         public static final int drawer_close=0x7f050026;
         public static final int drawer_open=0x7f050025;
         public static final int dummy_section_text=0x7f050024;
-        public static final int error_field_required=0x7f050047;
-        public static final int error_incorrect_password=0x7f050046;
-        public static final int error_invalid_email=0x7f050044;
-        public static final int error_invalid_password=0x7f050045;
+        public static final int error_field_required=0x7f050048;
+        public static final int error_incorrect_password=0x7f050047;
+        public static final int error_invalid_email=0x7f050045;
+        public static final int error_invalid_password=0x7f050046;
         public static final int firstWizardDescription=0x7f050034;
         public static final int firstWizardTitle=0x7f050033;
         public static final int firstWizardTop=0x7f050032;
@@ -649,19 +648,20 @@ containing a value of this type.
         public static final int password=0x7f05002d;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f050040;
-        public static final int prompt_password=0x7f050041;
+        public static final int prompt_email=0x7f050041;
+        public static final int prompt_password=0x7f050042;
         public static final int secondWizardDate=0x7f050039;
         public static final int secondWizardTime=0x7f050038;
         public static final int store_picture_message=0x7f050001;
         public static final int store_picture_title=0x7f050000;
         public static final int thirdWizardCheckList=0x7f05003b;
         public static final int title_activity_check_list=0x7f05003a;
-        public static final int title_activity_contact=0x7f05003e;
         public static final int title_activity_event_first_step=0x7f05002e;
         public static final int title_activity_event_second_step=0x7f050036;
         public static final int title_activity_guests=0x7f05003c;
-        public static final int title_activity_login=0x7f05003f;
+        public static final int title_activity_login=0x7f050040;
+        public static final int title_activity_notify=0x7f05003e;
+        public static final int title_activity_where=0x7f05003f;
         public static final int username=0x7f05002c;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 

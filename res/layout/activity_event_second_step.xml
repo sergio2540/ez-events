@@ -8,15 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ezevents.android.app.EventSecondStepActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="@string/when" />
-
+   
     <Button
         android:id="@+id/secondNextButton"
         android:layout_width="wrap_content"
@@ -48,14 +40,7 @@
         android:layout_toLeftOf="@+id/secondNextButton"
         android:text="@string/secondWizardDate" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/firstWizardWhere" />
-
+    
     <EditText
         android:id="@+id/date"
         android:layout_width="wrap_content"
