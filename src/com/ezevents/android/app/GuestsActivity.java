@@ -100,17 +100,19 @@ public class GuestsActivity extends Activity {
 					// Item position in adapter
 					// Add sport if it is checked i.e.) == TRUE!
 					if (checked.valueAt(i)){
-						String selected = guestList.get(i);
+					   
+						String selected =  guestListView.getAdapter().getItem(
+							    checked.keyAt(i)).toString();
 
 						if(selected.contains("@")){
-							selectedEmails.add(guestList.get(i).split(":")[1]);
+							selectedEmails.add(selected.split(":")[1]);
 
 						}else 
-							selectedPhones.add(guestList.get(i).split(":")[1]);
+							selectedPhones.add(selected.split(":")[1]);
 					}
 				}
 				 
-				intent.putExtra("Email",selectedEmails);
+				intent.putExtra("Email", selectedEmails);
 				intent.putExtra("Phones", selectedPhones);
 				startActivity(intent);
 
