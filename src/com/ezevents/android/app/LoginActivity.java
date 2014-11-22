@@ -29,6 +29,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.hadoop.hbase.rest.client.Client;
+import org.apache.hadoop.hbase.rest.client.Cluster;
+import org.apache.hadoop.hbase.rest.client.RemoteHTable;
+
 
 
 /**
@@ -50,14 +54,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	 //SUI references.
 	private EditText userNameView;
 	private EditText mPasswordView;
-	//private View mProgressView;
-	//private View mLoginFormView;
+	 private RemoteHTable table;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
+		
+		Cluster cluster = new Cluster();
+		cluster.add("ec2-54-194-23-170.eu-west-1.compute.amazonaws.com", 8080);
+		Client  client = new Client(cluster);
+		this.table = new RemoteHTable(client, "ez-events");
+		
+		
 		// Set up the login form.
 		userNameView = (EditText) findViewById(R.id.username);
 		populateAutoComplete();
