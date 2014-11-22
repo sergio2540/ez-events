@@ -48,46 +48,45 @@ public class GuestsActivity extends Activity {
 					// This would allow you get several email addresses
 					// if the email addresses were stored in an array
 					//int index = emailCur.getColumnName(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-					String email = "";
 					try{
-						email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+						String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+						String guest = name + " " + email;
+						guestList.add(guest);
+						emailCur.close();
 
 					}catch(Exception e){
 
 						Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
 						if (pCur != null) {
-							while (pCur.moveToNext()) {
+							try{
 								String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
 								String guest = name + phone;
 								guestList.add(guest);
+								pCur.close();
+							}catch (Exception e1){
+
 								continue;
 							}
-							pCur.close();
-
-						} 
-
-
+						}
 					}
-					//String emailType = emailCur.getString(
-					//emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE)); 
-					String guest = name + " " + email;
-					guestList.add(guest);
-					emailCur.close();
-					continue;
+				} else{
+
+					Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
+					if (pCur != null) {
+
+						try{
+							String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
+							String guest = name + phone;
+							guestList.add(guest);
+							pCur.close();
+						}catch(Exception e){
+
+
+						}
+					}
+
+
 				}
-
-
-				//				Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
-				//				if (pCur != null) {
-				//					while (pCur.moveToNext()) {
-				//						String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
-				//						String guest = name + phone;
-				//						guestList.add(guest);
-				//						continue;
-				//					}
-				//					pCur.close();
-
-				//} 
 
 			}
 		}
