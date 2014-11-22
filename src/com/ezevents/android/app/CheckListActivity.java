@@ -103,7 +103,7 @@ public class CheckListActivity extends Activity {
 		//attemptLogin();
 		Intent intent = getIntent();
 		intent.setClass(view.getContext(), GuestsActivity.class);
-		intent.putExtra("CheckList", checkList.toArray());
+		intent.putExtra("CheckList", checkList.toArray(new String[checkList.size()]));
 	    startActivity(intent);
 
 	    }
