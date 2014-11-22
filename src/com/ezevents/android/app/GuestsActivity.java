@@ -1,6 +1,7 @@
 package com.ezevents.android.app;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -19,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Toast;
 
 public class GuestsActivity extends Activity {
 
@@ -37,59 +39,48 @@ public class GuestsActivity extends Activity {
 		guestListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		guestListView.setAdapter(checkListAdapter);
 
-		ContentResolver cr = getContentResolver();
-		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-		if (cur.getCount() > 0) {
-			while (cur.moveToNext()) {
-				String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-				String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-				Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{id}, null); 
-				if (emailCur != null) { 
-					// This would allow you get several email addresses
-					// if the email addresses were stored in an array
-					//int index = emailCur.getColumnName(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-					try{
-						String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-						String guest = name + " " + email;
-						guestList.add(guest);
-						emailCur.close();
 
-					}catch(Exception e){
 
-						Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
-						if (pCur != null) {
-							try{
-								String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
-								String guest = name + phone;
-								guestList.add(guest);
-								pCur.close();
-							}catch (Exception e1){
 
-								continue;
+		ContentResolver cr = getContentResolver(); //Activity/Application android.content.Context
+		Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+		if(cursor.moveToFirst())
+		{
+			do
+			{
+				String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+				String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+						Cursor cur1 = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{id}, null); 
+						while (cur1.moveToNext()) { 
+							String email = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+							if(email!=null){
+								guestList.add(name+":"+email);
 							}
-						}
-					}
-				} else{
 
-					Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", new String[]{id}, null);
-					if (pCur != null) {
+						} 
+						cur1.close();
 
-						try{
-							String phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
-							String guest = name + phone;
-							guestList.add(guest);
+			
+
+						if(Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0)
+						{
+							Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",new String[]{ id }, null);
+							while (pCur.moveToNext()) 
+							{
+								String contactNumber = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+								guestList.add(name+":"+contactNumber);
+
+							}
 							pCur.close();
-						}catch(Exception e){
-
-
 						}
-					}
-
-
-				}
-
-			}
+			} while (cursor.moveToNext()) ;
+			
+			cursor.close();
 		}
+		
+		Collections.sort(guestList, String.CASE_INSENSITIVE_ORDER);
+
 
 		Button mFirstNextButton = (Button) findViewById(R.id.guestNext);
 
@@ -112,13 +103,13 @@ public class GuestsActivity extends Activity {
 						String selected = guestList.get(i);
 
 						if(selected.contains("@")){
-							selectedEmails.add(guestList.get(i));
+							selectedEmails.add(guestList.get(i).split(":")[1]);
 
 						}else 
-							selectedPhones.add(guestList.get(i));
+							selectedPhones.add(guestList.get(i).split(":")[1]);
 					}
 				}
-
+				 
 				intent.putExtra("Email",selectedEmails);
 				intent.putExtra("Phones", selectedPhones);
 				startActivity(intent);

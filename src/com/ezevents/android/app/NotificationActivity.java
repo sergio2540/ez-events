@@ -50,9 +50,9 @@ public class NotificationActivity extends Activity {
 
 	}
 
-	public void sendSMS(String[] contacts, String template){
+	public void sendSMS(ArrayList<String> contacts, String template){
 
-		Intent smsIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:"+contacts[0]));
+		Intent smsIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:"+contacts.toArray()[0]));
 		smsIntent.putExtra("sms_body", template);
 
 		try {
@@ -68,7 +68,7 @@ public class NotificationActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
 		case REQUEST_CODE_MAIL:
-			sendSMS(new String[]{"966685206"}, "teste");
+			sendSMS(getIntent().getStringArrayListExtra("Phones"), "Teste");
 			break;
 		case REQUEST_CODE_SMS:
 			Intent intent = new Intent(this, EventSecondStepActivity.class);
