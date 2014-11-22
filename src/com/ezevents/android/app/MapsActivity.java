@@ -49,7 +49,8 @@ public class MapsActivity extends FragmentActivity {
 	mSecondNextButton.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View view) {
-		Intent intent = new Intent(view.getContext(), CheckListActivity.class);
+		Intent intent = getIntent();
+		intent.setClass(view.getContext(), CheckListActivity.class);
 		intent.putExtra("Lat", lat);
 		intent.putExtra("Lon", lon);
 		//attemptLogin();

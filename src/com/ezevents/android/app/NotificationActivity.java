@@ -23,6 +23,7 @@ public class NotificationActivity extends Activity {
 	String time = "";
 	String place = "https://maps.google?q=";
 	String checkList = "";
+	String message = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class NotificationActivity extends Activity {
 			
 		}
 
-		String message = "Hi!\n You have been invited to the " + title + " event : " + description + ".\n The event will take place " + date + " at " +time+ " in " + place + ".\n" + "Please attent to the following checklist:\n" + checkList + "\n. Be there :)"; 
+		message = "Hi!\n You have been invited to the " + title + " event : " + description + ".\n The event will take place " + date + " at " +time+ " in " + place + ".\n" + "Please attent to the following checklist:\n" + checkList + "\n. Be there :)"; 
 		sendEmail(getIntent().getStringArrayListExtra("Email"),message);
 		
 	}
@@ -60,7 +61,7 @@ public class NotificationActivity extends Activity {
 
 		emailIntent.putExtra(Intent.EXTRA_EMAIL  , emails);
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT  , "Ez-Events - " + title);
-		emailIntent.putExtra(Intent.EXTRA_TEXT, Integer.toString(contacts.size()));
+		emailIntent.putExtra(Intent.EXTRA_TEXT, template);
 
 		try {
 			startActivityForResult(Intent.createChooser(emailIntent, "Send mail..."),REQUEST_CODE_MAIL);
@@ -90,7 +91,7 @@ public class NotificationActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
 		case REQUEST_CODE_MAIL:
-			sendSMS(getIntent().getStringArrayListExtra("Phones"), "Teste");
+			sendSMS(getIntent().getStringArrayListExtra("Phones"), message);
 			break;
 		case REQUEST_CODE_SMS:
 			Intent intent = new Intent(this, EventSecondStepActivity.class);
