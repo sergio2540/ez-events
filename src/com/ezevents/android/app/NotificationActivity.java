@@ -16,13 +16,34 @@ public class NotificationActivity extends Activity {
 
 	final int REQUEST_CODE_MAIL = 1;
 	final int REQUEST_CODE_SMS = 2;
-
+	
+	String title = "";
+	String description = "";
+	String date = "";
+	String time = "";
+	String place = "https://maps.google?q=";
+	String checkList = "";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact);
-		sendEmail(getIntent().getStringArrayListExtra("Email"),"Teste");
+		
+		title = getIntent().getStringExtra("Title");
+		description = getIntent().getStringExtra("Description");
+		date = getIntent().getStringExtra("Date");
+		time = getIntent().getStringExtra("Time");
+		place += getIntent().getStringExtra("Lat") + "," + getIntent().getStringExtra("Lon");
+		String[] checkListTemp = getIntent().getStringArrayExtra("CheckList");
+		if(checkListTemp != null)
+		for(String item : checkListTemp){
+				checkList+= (item + "\n");
+			
+		}
 
+		String message = "Hi!\n You have been invited to the " + title + " event : " + description + ".\n The event will take place " + date + " at " +time+ " in " + place + ".\n" + "Please attent to the following checklist:\n" + checkList + "\n. Be there :)"; 
+		sendEmail(getIntent().getStringArrayListExtra("Email"),message);
+		
 	}
 
 	public void sendEmail(ArrayList<String> contacts, String template){
@@ -38,6 +59,7 @@ public class NotificationActivity extends Activity {
 		}
 
 		emailIntent.putExtra(Intent.EXTRA_EMAIL  , emails);
+		emailIntent.putExtra(Intent.EXTRA_SUBJECT  , "Ez-Events - " + title);
 		emailIntent.putExtra(Intent.EXTRA_TEXT, Integer.toString(contacts.size()));
 
 		try {

@@ -50,6 +50,8 @@ public class MapsActivity extends FragmentActivity {
 	    @Override
 	    public void onClick(View view) {
 		Intent intent = new Intent(view.getContext(), CheckListActivity.class);
+		intent.putExtra("Lat", lat);
+		intent.putExtra("Lon", lon);
 		//attemptLogin();
 		startActivity(intent);
 
