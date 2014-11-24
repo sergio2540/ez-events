@@ -74,8 +74,15 @@ public class NotificationActivity extends Activity {
 	}
 
 	public void sendSMS(ArrayList<String> contacts, String template){
+		
+		String phones = "";
+		
+		for (String phone : contacts){
+			phones += phone + ";";
+			
+		}
 
-		Intent smsIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:"+contacts.toArray()[0]));
+		Intent smsIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:"+phones));
 		smsIntent.putExtra("sms_body", template);
 
 		try {
