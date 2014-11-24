@@ -55,7 +55,7 @@ public class GuestsActivity extends Activity {
 						while (cur1.moveToNext()) { 
 							String email = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
 							if(email!=null){
-								guestList.add(name+":"+email);
+								guestList.add(name+" - "+email);
 							}
 
 						} 
@@ -69,7 +69,7 @@ public class GuestsActivity extends Activity {
 							while (pCur.moveToNext()) 
 							{
 								String contactNumber = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-								guestList.add(name+":"+contactNumber);
+								guestList.add(name+" - "+contactNumber);
 
 							}
 							pCur.close();
@@ -82,42 +82,7 @@ public class GuestsActivity extends Activity {
 		Collections.sort(guestList, String.CASE_INSENSITIVE_ORDER);
 
 
-		Button mFirstNextButton = (Button) findViewById(R.id.guestNext);
-
-		mFirstNextButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				//Intent intent = new Intent(view.getContext(), NotificationActivity.class);
-				//attemptLogin();
-				Intent intent = getIntent();
-				intent.setClass(view.getContext(), NotificationActivity.class);
-
-				SparseBooleanArray checked = guestListView.getCheckedItemPositions();
-				ArrayList<String> selectedEmails = new ArrayList<String>();
-				ArrayList<String> selectedPhones = new ArrayList<String>();
-
-				for (int i = 0; i < checked.size(); i++) {
-					// Item position in adapter
-					// Add sport if it is checked i.e.) == TRUE!
-					if (checked.valueAt(i)){
-					   
-						String selected =  guestListView.getAdapter().getItem(
-							    checked.keyAt(i)).toString();
-
-						if(selected.contains("@")){
-							selectedEmails.add(selected.split(":")[1]);
-
-						}else 
-							selectedPhones.add(selected.split(":")[1]);
-					}
-				}
-				 
-				intent.putExtra("Email", selectedEmails);
-				intent.putExtra("Phones", selectedPhones);
-				startActivity(intent);
-
-			}
-		});
+		
 	}
 
 	@Override
@@ -135,6 +100,34 @@ public class GuestsActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}
+		else if (id == R.id.action_next_guests) {
+		    Intent intent = getIntent();
+			intent.setClass(this, NotificationActivity.class);
+
+			SparseBooleanArray checked = guestListView.getCheckedItemPositions();
+			ArrayList<String> selectedEmails = new ArrayList<String>();
+			ArrayList<String> selectedPhones = new ArrayList<String>();
+
+			for (int i = 0; i < checked.size(); i++) {
+				// Item position in adapter
+				// Add sport if it is checked i.e.) == TRUE!
+				if (checked.valueAt(i)){
+				   
+					String selected =  guestListView.getAdapter().getItem(
+						    checked.keyAt(i)).toString();
+
+					if(selected.contains("@")){
+						selectedEmails.add(selected.split(" - ")[1]);
+
+					}else 
+						selectedPhones.add(selected.split(" - ")[1]);
+				}
+			}
+			 
+			intent.putExtra("Email", selectedEmails);
+			intent.putExtra("Phones", selectedPhones);
+			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}

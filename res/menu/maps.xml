@@ -3,12 +3,7 @@
     tools:context="com.ezevents.android.app.CheckListActivity" >
 
     <item
-        android:id="@+id/action_add_todo"
-        android:icon="@drawable/ic_action_new"
-        android:showAsAction="ifRoom"
-        android:title="Add TODO"/>
-    <item
-        android:id="@+id/action_next_checklist"
+        android:id="@+id/action_next_maps"
         android:icon="@drawable/ic_action_next_item"
         android:showAsAction="ifRoom"
         android:title="Next"/>

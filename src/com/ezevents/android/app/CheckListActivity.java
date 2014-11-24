@@ -54,11 +54,11 @@ public class CheckListActivity extends Activity {
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 	    int id = item.getItemId();
-		    if (id == R.id.action_edit_todo){
-			showDialog(ItemOption.EDIT,titleEdit,positiveEdit);
-			mode.finish(); // Action picked, so close the CAB
-			return true;
-		    }
+	    if (id == R.id.action_edit_todo){
+		showDialog(ItemOption.EDIT,titleEdit,positiveEdit);
+		mode.finish(); // Action picked, so close the CAB
+		return true;
+	    }
 	    if (id == R.id.action_remove_todo){
 		removeTODO(selected);
 		mode.finish(); // Action picked, so close the CAB
@@ -94,20 +94,7 @@ public class CheckListActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_check_list);
 
-	Button mCheckListButton = (Button) findViewById(R.id.check_list_next);
-
-	mCheckListButton.setOnClickListener(new OnClickListener() {
-	    @Override
-	    public void onClick(View view) {
-		//Intent intent = new Intent(view.getContext(), GuestsActivity.class);
-		//attemptLogin();
-		Intent intent = getIntent();
-		intent.setClass(view.getContext(), GuestsActivity.class);
-		intent.putExtra("CheckList", checkList.toArray(new String[checkList.size()]));
-	    startActivity(intent);
-
-	    }
-	});
+	
 
 	ListView checkListView =  (ListView)findViewById(R.id.checkList);
 	checkListAdapter = new ArrayAdapter<String>(this,R.layout.check_list_view, checkList);
@@ -157,6 +144,13 @@ public class CheckListActivity extends Activity {
 	else if (id == R.id.action_add_todo)
 	{
 	    showDialog(ItemOption.ADD,titleAdd,positiveAdd );
+
+	}else if (id == R.id.action_next_checklist)
+	{
+	    Intent intent = getIntent();
+	    intent.setClass(this, GuestsActivity.class);
+	    intent.putExtra("CheckList", checkList.toArray(new String[checkList.size()]));
+	    startActivity(intent);
 
 	}
 	return super.onOptionsItemSelected(item);

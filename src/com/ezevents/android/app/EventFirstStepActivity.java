@@ -19,19 +19,7 @@ public class EventFirstStepActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_event_first_step);
 
-	Button mFirstNextButton = (Button) findViewById(R.id.firstNextButton);
-
-	mFirstNextButton.setOnClickListener(new OnClickListener() {
-	    @Override
-	    public void onClick(View view) {
-		Intent intent = new Intent(view.getContext(), EventSecondStepActivity.class);
-		//attemptLogin();
-		intent.putExtra("Title", ((EditText)findViewById(R.id.editText1)).getText().toString());
-		intent.putExtra("Description", ((EditText)findViewById(R.id.editText2)).getText().toString());
-		startActivity(intent);
-
-	    }
-	});
+	
     }
 
     @Override
@@ -50,6 +38,15 @@ public class EventFirstStepActivity extends Activity {
 	if (id == R.id.action_settings) {
 	    return true;
 	}
+	else if (id == R.id.action_basic_info_next) {
+	    
+	    Intent intent = new Intent(this, EventSecondStepActivity.class);
+	    intent.putExtra("Title", ((EditText)findViewById(R.id.editText1)).getText().toString());
+	    intent.putExtra("Description", ((EditText)findViewById(R.id.editText2)).getText().toString());
+	    startActivity(intent);
+	
+	}
+
 	return super.onOptionsItemSelected(item);
     }
 }

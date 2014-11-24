@@ -3,6 +3,12 @@
     tools:context="com.ezevents.android.app.GuestsActivity" >
 
     <item
+        android:id="@+id/action_next_guests"
+        android:icon="@drawable/ic_action_next_item"
+        android:showAsAction="ifRoom"
+        android:title="Next"/>
+    
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"

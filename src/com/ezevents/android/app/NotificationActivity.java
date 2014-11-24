@@ -104,7 +104,7 @@ public class NotificationActivity extends Activity {
 			Intent intent = new Intent(this, EventSecondStepActivity.class);
 			//attemptLogin();
 			startActivity(intent);
-			Toast.makeText(this, "SUCH SUCCESS.WOW!", Toast.LENGTH_SHORT).show();
+			
 			break;
 		}
 	}

@@ -36,7 +36,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class EventSecondStepActivity extends Activity {
-	
+
 
     Calendar myCalendar = Calendar.getInstance();
     EditText editDate;
@@ -72,28 +72,13 @@ public class EventSecondStepActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_event_second_step);
-	
+
 
 	editDate = (EditText) findViewById(R.id.date); 
 	editTime = (EditText) findViewById(R.id.time); 
 
 
-	Button mSecondNextButton = (Button) findViewById(R.id.secondNextButton);
-
-	mSecondNextButton.setOnClickListener(new OnClickListener() {
-	    @Override
-	    public void onClick(View view) {
-		//Intent intent = new Intent(view.getContext(), MapsActivity.class);
-		//attemptLogin();
-		
-		Intent intent = getIntent();
-		intent.setClass(view.getContext(), MapsActivity.class);
-		intent.putExtra("Date", editDate.getText().toString());
-		intent.putExtra("Time",editTime.getText().toString());
-		startActivity(intent);
-
-	    }
-	});
+	
 
 	editDate.setOnClickListener(new OnClickListener() {
 
@@ -144,6 +129,13 @@ public class EventSecondStepActivity extends Activity {
 	int id = item.getItemId();
 	if (id == R.id.action_settings) {
 	    return true;
+	}
+	if (id == R.id.action_when_next) {
+	    Intent intent = getIntent();
+	    intent.setClass(this, MapsActivity.class);
+	    intent.putExtra("Date", editDate.getText().toString());
+	    intent.putExtra("Time",editTime.getText().toString());
+	    startActivity(intent);
 	}
 	return super.onOptionsItemSelected(item);
     }

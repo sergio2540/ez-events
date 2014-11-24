@@ -31,15 +31,6 @@
         android:inputType="textCapSentences|textAutoCorrect|textMultiLine" />
 
 
-    <Button
-        android:id="@+id/firstNextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp"
-        android:background="#4877C0"
-        android:text="@string/next_wizard"
-        android:textColor="#FFFFFF" />
+   
 
 </RelativeLayout>
