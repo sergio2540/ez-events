@@ -5,6 +5,7 @@ package com.ezevents.android.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract.EventsEntity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +41,8 @@ public class EventFirstStepActivity extends Activity {
 	}
 	else if (id == R.id.action_basic_info_next) {
 	    
-	    Intent intent = new Intent(this, EventSecondStepActivity.class);
+	    Intent intent = getIntent();
+	    intent.setClass(this, EventSecondStepActivity.class);
 	    intent.putExtra("Title", ((EditText)findViewById(R.id.editText1)).getText().toString());
 	    intent.putExtra("Description", ((EditText)findViewById(R.id.editText2)).getText().toString());
 	    startActivity(intent);

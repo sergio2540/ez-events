@@ -10,6 +10,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class NotificationActivity extends Activity {
@@ -43,7 +44,21 @@ public class NotificationActivity extends Activity {
 		}
 
 		message = "Hi!\n You have been invited to the " + title + " event : " + description + ".\n The event will take place " + date + " at " +time+ " in " + place + ".\n" + "Please attent to the following checklist:\n" + checkList + "\n. Be there :)"; 
-		sendEmail(getIntent().getStringArrayListExtra("Email"),message);
+		
+		if(getIntent().getStringArrayListExtra("Emails").size() != 0)
+			sendEmail(getIntent().getStringArrayListExtra("Emails"),message);
+		else{
+			
+			if(getIntent().getStringArrayListExtra("Phones").size() != 0)
+				sendSMS(getIntent().getStringArrayListExtra("Phones"), message);
+			else {
+				new AsyncPersistence(getIntent()).execute();
+				Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);	
+			}
+			
+		}
+			
 		
 	}
 
@@ -98,14 +113,21 @@ public class NotificationActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
 		case REQUEST_CODE_MAIL:
-			sendSMS(getIntent().getStringArrayListExtra("Phones"), message);
+			if(getIntent().getStringArrayListExtra("Phones").size() != 0)
+				sendSMS(getIntent().getStringArrayListExtra("Phones"), message);
+			else {
+				new AsyncPersistence(getIntent()).execute();
+				Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);	
+			}
 			break;
 		case REQUEST_CODE_SMS:
-			Intent intent = new Intent(this, EventSecondStepActivity.class);
-			//attemptLogin();
+			new AsyncPersistence(getIntent()).execute();
+			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
-			
 			break;
 		}
 	}
+
+	
 }

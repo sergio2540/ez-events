@@ -18,10 +18,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-public class HttpRequestAsync extends AsyncTask<String, Void, String> {
+public class AsyncLogin extends AsyncTask<String, Void, String> {
 	
 	Activity previous = null;
+	String username;
 	
+	public AsyncLogin(String username) {
+		this.username = username;
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	protected String doInBackground(String... urls) {
 
@@ -34,6 +39,7 @@ public class HttpRequestAsync extends AsyncTask<String, Void, String> {
 	
 		//if(result.equals("1")){
 			Intent intent = new Intent(LoginActivity.context,MainActivity.class);
+			intent.putExtra("Username", username);
 			LoginActivity.context.startActivity(intent);
 		//}
 		//else {

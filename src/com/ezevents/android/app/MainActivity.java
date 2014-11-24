@@ -99,8 +99,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 
     private void create_event() {
-
-	Intent intent = new Intent(this, EventFirstStepActivity.class);
+	Intent intent = getIntent();
+	intent.setClass(this, EventFirstStepActivity.class);
+	
 	//attemptLogin();
 	startActivity(intent);
 

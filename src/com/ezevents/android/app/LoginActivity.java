@@ -98,7 +98,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 				String password = ((EditText) findViewById(R.id.password)).getText().toString();
 				String link = "https://web.ist.utl.pt/ist170515/login.php?Username="+username+"&Password="+password;
 				
-				new HttpRequestAsync().execute(link);
+				new AsyncLogin(username).execute(link);
 			}
 		});
 
