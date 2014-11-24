@@ -331,11 +331,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    ListView lv = (ListView)rootView.findViewById(R.id.my_events);
 
 	    List<String > lista = new ArrayList<String>();
-	    lista.add("Evento 1");
-	    lista.add("Evento 2");
-	    lista.add("Evento 3");
-	    lista.add("Evento 4");
-	    lista.add("Evento 5");
+	    lista.add("Festa de aniversário do Gui");
+	    lista.add("Jogo de Futebol na Alameda");
+	    lista.add("Jantar de Despedida da Joana");
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.event, lista);
 
 	    lv.setAdapter(adapter);

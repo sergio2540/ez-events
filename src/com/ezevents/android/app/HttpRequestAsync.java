@@ -32,14 +32,14 @@ public class HttpRequestAsync extends AsyncTask<String, Void, String> {
 	protected void onPostExecute(String result) {
 		
 	
-		if(result.equals("1")){
+		//if(result.equals("1")){
 			Intent intent = new Intent(LoginActivity.context,MainActivity.class);
 			LoginActivity.context.startActivity(intent);
-		}
-		else {
+		//}
+		//else {
 
-			Toast.makeText(LoginActivity.context, "Wrong user or password.", Toast.LENGTH_LONG).show();
-		}
+		//	Toast.makeText(LoginActivity.context, "Wrong user or password.", Toast.LENGTH_LONG).show();
+		//}
 	}
 	
 	public static String GET(String url){
