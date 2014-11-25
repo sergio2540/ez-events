@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
@@ -384,19 +385,29 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		}
 	}
 
-
+	public static ArrayAdapter<String> notificationsAdapter;
+	
 	public static class InvitedSectionFragment extends Fragment {
+
+		
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
+		    
 			View rootView = inflater.inflate(R.layout.fragment_section_launchpad, container, false);
-			intent = getIntent();
-			notificationsListView = (ListView)findViewById(R.id.my_events);
-			ArrayAdapter<String> notificationsAdapter = new ArrayAdapter<String>(this, R.layout.event, notificationsList);
+			
+			
+			
+			notificationsListView = (ListView) rootView.findViewById(R.id.my_events);
+			notificationsAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.event, notificationsList);
 			notificationsAdapter.notifyDataSetChanged();
-			notificationsListView.setAdapter(new ArrayAdapter<String>(this, R.layout.event, notificationsList));
+			notificationsListView.setAdapter(new ArrayAdapter<String>(this.getActivity(), R.layout.event, notificationsList));
 			notificationsList.clear();
+			
+			notificationsListView.setAdapter(notificationsAdapter);
+			
+			intent = this.getActivity().getIntent();
 			new AsyncFetch().execute(intent.getStringExtra("Username"));
 			
 

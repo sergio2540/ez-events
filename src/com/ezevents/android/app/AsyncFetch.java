@@ -37,7 +37,9 @@ public class AsyncFetch extends AsyncTask<String, Void, String> {
 	// onPostExecute displays the results of the AsyncTask.
 	@Override
 	protected void onPostExecute(String result) {
-		
+	    
+		MainActivity.notificationsList.add(result);
+		MainActivity.notificationsAdapter.notifyDataSetChanged();
 	}
 	
 	public static String GET(String url){
