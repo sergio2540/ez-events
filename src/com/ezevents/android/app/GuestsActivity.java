@@ -125,7 +125,7 @@ public class GuestsActivity extends Activity {
 				}
 			}
 			 
-			intent.putExtra("Email", selectedEmails);
+			intent.putExtra("Emails", selectedEmails);
 			intent.putExtra("Phones", selectedPhones);
 			startActivity(intent);
 		}

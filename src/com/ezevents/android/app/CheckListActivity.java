@@ -98,7 +98,6 @@ public class CheckListActivity extends Activity {
 
 	ListView checkListView =  (ListView)findViewById(R.id.checkList);
 	checkListAdapter = new ArrayAdapter<String>(this,R.layout.check_list_view, checkList);
-	checkListAdapter.notifyDataSetChanged();
 
 
 	checkListView.setOnItemLongClickListener(new OnItemLongClickListener() {

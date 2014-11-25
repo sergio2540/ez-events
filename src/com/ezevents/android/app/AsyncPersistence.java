@@ -55,7 +55,7 @@ public class AsyncPersistence extends AsyncTask<String, Void, String> {
 				GET("https://web.ist.utl.pt/ist170515/add-guest.php?Creator="+creator+"&Date="+date+"&Time="+time+"&Guest="+emailUsername);
 		}
 
-		ArrayList<String> checkList = intent.getStringArrayListExtra("CheckList");
+		String[] checkList = intent.getStringArrayExtra("CheckList");
 		for(String item : checkList){
 
 			GET("https://web.ist.utl.pt/ist170515/add-resource.php?Creator="+creator+"&Date="+date+"&Time="+time+"&Resource="+item);
