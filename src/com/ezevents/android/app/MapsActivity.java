@@ -6,6 +6,8 @@ import java.util.List;
 
 
 
+
+
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -23,11 +25,15 @@ import android.widget.Toast;
 
 
 
+
+
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity {
@@ -37,6 +43,8 @@ public class MapsActivity extends FragmentActivity {
     LatLng latLng;
     private double lat;
     private double lon;
+    
+    Marker loc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +63,37 @@ public class MapsActivity extends FragmentActivity {
 	googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 	googleMap.setMyLocationEnabled(true);
 
+	double l1 = 38.737597;
+	double l2 = -9.303257;
+	
+	CameraUpdate center=
+		        CameraUpdateFactory.newLatLng(new LatLng(l1,
+		                                                 l2));
+		    CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
 
+		    googleMap.moveCamera(center);
+		    googleMap.animateCamera(zoom);
+		    
+		    
+		    googleMap.addMarker(new MarkerOptions()
+		        .position(new LatLng(38.737804, -9.302163))
+		        .title("Campo de Futebol do IST - 968283363"));
+		  
+		    googleMap.addMarker(new MarkerOptions()
+		        .position(new LatLng(38.737466, -9.304716))
+		        .title("Pizzaria Costa - 968293563"));
+		    
+//		    googleMap.addMarker(new MarkerOptions()
+//		        .position(new LatLng(l1+0.0005, l2+0.0003))
+//		        .title("Restaurante Quasi - 968293563"));
+//		    
+		    
+		    final LatLng C = new LatLng(l1, l2);
+		    loc = googleMap.addMarker(new MarkerOptions()
+                    .position(C)
+                    .draggable(true));
+		    
+		    
 	// Getting reference to btn_find of the layout activity_main
 	Button btn_find = (Button) findViewById(R.id.btn_find);
 
@@ -100,6 +138,10 @@ public class MapsActivity extends FragmentActivity {
 	{
 	    Intent intent = getIntent();
 	    intent.setClass(this, CheckListActivity.class);
+	    LatLng l = loc.getPosition();
+	    lat = l.latitude;
+	    lon = l.longitude;
+	    
 	    intent.putExtra("Lat", lat);
 	    intent.putExtra("Lon", lon);
 	    //attemptLogin();

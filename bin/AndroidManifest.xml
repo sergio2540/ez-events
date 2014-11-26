@@ -61,7 +61,7 @@
         <activity
             android:name=".CheckListActivity"
             android:label="@string/title_activity_check_list"
-            android:parentActivityName=".EventSecondStepActivity" >
+            android:parentActivityName=".MapsActivity" >
         </activity>
         <activity
             android:name=".GuestsActivity"

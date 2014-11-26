@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="#4877C0"
-            android:text="mark"
+            android:text="search"
             android:textColor="#FFFFFF" />
 
         <EditText
