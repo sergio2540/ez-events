@@ -19,11 +19,14 @@ package com.ezevents.android.app;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.android.gms.games.internal.api.NotificationsImpl;
+
 
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -40,12 +43,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 
 
@@ -54,6 +60,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public static Intent intent;
 	public static ListView notificationsListView;
 	public static List<String> notificationsList = new ArrayList<String>();
+	public static Context cont;
+	public static List<String> myEventsList;
+	public static ArrayAdapter<String> myEventsListAdapter;
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -165,6 +174,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		cont = this;
+		intent = getIntent();
 
 		setContentView(R.layout.activity_main);
 
@@ -341,15 +352,32 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_section_launchpad, container, false);
 
-			ListView lv = (ListView)rootView.findViewById(R.id.my_events);
+			ListView myEventsListview = (ListView)rootView.findViewById(R.id.my_events);
 
-			List<String > lista = new ArrayList<String>();
-			lista.add("Festa de aniversário do Gui");
-			lista.add("Jogo de Futebol na Alameda");
-			lista.add("Jantar de Despedida da Joana");
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.event, lista);
+			myEventsList = new ArrayList<String>();
+			myEventsList.add("Festa de aniversário do Gui");
+			myEventsList.add("Jogo de Futebol na Alameda");
+			myEventsList.add("Jantar de Despedida da Joana");
+			myEventsListAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.event, myEventsList);
+			new AsyncFetchMyEvents().execute();
 
-			lv.setAdapter(adapter);
+			myEventsListview.setAdapter(myEventsListAdapter);
+			
+			myEventsListview.setOnItemClickListener(new OnItemClickListener() {
+
+
+			    @Override
+			    public void onItemClick(AdapterView<?> adapter, View view, int index, long arg3) {
+			    	
+			    	String event = myEventsList.get(index);
+			    	new AsyncGetTodo(intent.getStringExtra("Username")).execute(event);
+
+			
+
+
+	
+			    }
+			});
 
 
 			// Demonstration of a collection-browsing activity.
@@ -402,12 +430,29 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			notificationsListView = (ListView) rootView.findViewById(R.id.my_events);
 			notificationsAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.event, notificationsList);
 			notificationsAdapter.notifyDataSetChanged();
-			notificationsListView.setAdapter(new ArrayAdapter<String>(this.getActivity(), R.layout.event, notificationsList));
+			
+			notificationsListView.setOnItemClickListener(new OnItemClickListener() {
+
+
+			    @Override
+			    public void onItemClick(AdapterView<?> adapter, View view, int index, long arg3) {
+			    	
+			    	String notification = notificationsList.get(index);
+			    	new AsyncGetTodo(intent.getStringExtra("Username")).execute(notification);
+
+			
+
+
+	
+			    }
+			});
+
+			
+			
 			notificationsList.clear();
 			
 			notificationsListView.setAdapter(notificationsAdapter);
 			
-			intent = this.getActivity().getIntent();
 			new AsyncFetch().execute(intent.getStringExtra("Username"));
 			
 

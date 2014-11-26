@@ -12,7 +12,7 @@
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
-  limitations under the License.
+  limitations under the License.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -34,12 +34,12 @@
             android:name=".MainActivity"
             android:label="@string/app_name" >
         </activity>
-        
         <activity
             android:name=".LoginActivity"
             android:label="Ez-Events" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -79,6 +79,14 @@
         <activity
             android:name=".NotificationActivity"
             android:label="@string/title_activity_notify" >
+        </activity>
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help" >
+        </activity>
+        <activity
+            android:name=".OfferHelpActivity"
+            android:label="@string/title_activity_offer_help" >
         </activity>
     </application>
 

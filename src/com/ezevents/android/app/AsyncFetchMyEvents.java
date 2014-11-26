@@ -20,16 +20,16 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class AsyncFetch extends AsyncTask<String, Void, String> {
+public class AsyncFetchMyEvents extends AsyncTask<String, Void, String> {
 	
-	static ArrayList<String> events;;
+	static ArrayList<String> events;
 	
 	
 	@Override
 	protected String doInBackground(String... urls) {
 		
 		String username = MainActivity.intent.getStringExtra("Username");
-		String query = "https://web.ist.utl.pt/ist170515/get-notifications.php?Guest="+username;
+		String query = "https://web.ist.utl.pt/ist170515/get-my_events.php?Creator="+username;
 		events = new ArrayList<String>();
 		
 		
@@ -42,12 +42,12 @@ public class AsyncFetch extends AsyncTask<String, Void, String> {
 	protected void onPostExecute(String result) {
 		
 		for(String event : events){
-			MainActivity.notificationsList.add(event);
+			MainActivity.myEventsList.add(event);
 
 			
 		}
 	    
-		MainActivity.notificationsAdapter.notifyDataSetChanged();
+		MainActivity.myEventsListAdapter.notifyDataSetChanged();
 	}
 	
 	public static String GET(String url){

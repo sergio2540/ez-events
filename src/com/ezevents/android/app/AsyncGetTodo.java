@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -20,34 +21,41 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class AsyncFetch extends AsyncTask<String, Void, String> {
+public class AsyncGetTodo extends AsyncTask<String, Void, String> {
 	
-	static ArrayList<String> events;;
-	
-	
+	static ArrayList<String> itemsList; 
+	String username;
+	String[] labelFields;
+	public AsyncGetTodo(String username) {
+		// TODO Auto-generated constructor stub
+		this.username = username;
+	}
 	@Override
-	protected String doInBackground(String... urls) {
+	protected String doInBackground(String... eventLabel) {
+		
+		labelFields = eventLabel[0].split("\n");
+		itemsList = new ArrayList<String>();
 		
 		String username = MainActivity.intent.getStringExtra("Username");
-		String query = "https://web.ist.utl.pt/ist170515/get-notifications.php?Guest="+username;
-		events = new ArrayList<String>();
+		String query = "https://web.ist.utl.pt/ist170515/get-todo.php?Creator="+labelFields[0]+"&Date="+labelFields[3]+"&Time="+labelFields[4];
 		
-		
-		return GET(query);
-		
+		String result = GET(query);
+		return result;
 		
 	}
 	// onPostExecute displays the results of the AsyncTask.
 	@Override
 	protected void onPostExecute(String result) {
 		
-		for(String event : events){
-			MainActivity.notificationsList.add(event);
-
-			
-		}
-	    
-		MainActivity.notificationsAdapter.notifyDataSetChanged();
+		Intent intent = new Intent(MainActivity.cont, OfferHelpActivity.class);
+		intent.putExtra("Items", itemsList);
+		intent.putExtra("Username", username);
+		intent.putExtra("Creator",labelFields[0]);
+		intent.putExtra("Date", labelFields[3] );
+		intent.putExtra("Time", labelFields[4] );		
+		
+		MainActivity.cont.startActivity(intent);
+		
 	}
 	
 	public static String GET(String url){
@@ -86,11 +94,10 @@ public class AsyncFetch extends AsyncTask<String, Void, String> {
         inputStream.close();
 
         
-        String [] records = result.split("#");
+        String [] items = result.split(Pattern.quote("|"));
         
-        for(String record : records){
-        	
-        	events.add(record.replace('|', '\n'));	
+        for(String item : items){
+        	itemsList.add(item);	
         	
         }
 
